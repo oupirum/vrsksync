@@ -5,15 +5,26 @@ Sync utility
 Usage: 
   - On host (source):
   
-    $ node host.js username my_project_dir
+    $ node vrsksync send my_token my_directory
     
-    // So all changed files in this this folder will be sended to remote
+    // So all changed files in this this directory will be sended to remote
   
   - On remote:
   
-    $ node client.js username my_project_remote_dir
+    $ node vrsksync receive my_token my_directory
     
-    // So changed files from host will be updated here (username must be same on host and on client).
-    
-    my_project_dir - absolute path
-    
+    // So changed files from host will be updated here (token must be same on host and on remote)
+
+
+Setup:
+  
+  For private usage setup your own Firebase and
+  add credentials to the config.json:
+
+	...
+	"auth": {
+		"anonymous": false,
+		"email": "myemail@gmail.com",
+		"password": "qqqqqqq"
+	}
+	

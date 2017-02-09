@@ -1,0 +1,11 @@
+{
+	"databaseURL": "https://vrsksync.firebaseio.com",
+	"apiKey": "AIzaSyBIROzOgd22_VpY1xgUH5WSxNN1LRp9DDo",
+	
+	"auth": {
+		"anonymous": true,
+		
+		"email": "qqq@gmail.com",
+		"password": "qqq"
+	}
+}
