@@ -2,6 +2,7 @@
 	"databaseURL": "https://vrsksync.firebaseio.com",
 	"apiKey": "AIzaSyBIROzOgd22_VpY1xgUH5WSxNN1LRp9DDo",
 	
+	"hashSecret": "fdsfdsfuykkyuw",
 	"auth": {
 		"anonymous": true,
 		

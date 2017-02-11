@@ -20,11 +20,17 @@ Setup:
   
   For private usage setup your own Firebase and
   add credentials to the config.json:
-
-	...
-	"auth": {
-		"anonymous": false,
-		"email": "myemail@gmail.com",
-		"password": "qqqqqqq"
-	}
-	
+  
+    ...
+    "auth": {
+      "anonymous": false,
+      "email": "myemail@gmail.com",
+      "password": "qqqqqqq"
+    }
+  
+  If you decide to use anonymous mode you can specify you own secret phrase
+  for checking MD5 hashsum (to prevent malicious replacement of data):
+  
+    "hashSecret": "fewfeght-my-phrase",
+    "auth": {
+      ...
