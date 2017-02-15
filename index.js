@@ -8,11 +8,13 @@ var md5 = require('md5');
 var mode;
 var projectName;
 var projectDir;
+var ignore = [];
 var hashSecret = getHashSecret();
 parseArgs();
 
 if (!fs.existsSync(projectDir) || !fs.statSync(projectDir).isDirectory()) {
 	console.error('directory "' + projectDir + '" does not exists');
+	printUsage();
 	process.exit();
 }
 
@@ -24,7 +26,9 @@ connect(projectName).then(function(ref) {
 
 function listen(ref, projectDir) {
 	if (mode == 'send') {
-		watch(projectDir, function(filename) {
+		watch(projectDir, {
+			filter: filter
+		}, function(filename) {
 			send(filename);
 		});
 	} else if (mode == 'receive') {
@@ -98,6 +102,15 @@ function listen(ref, projectDir) {
 		}
 	}
 	
+	function filter(filename) {
+		for (var i in ignore) {
+			if (new RegExp('^' + ignore[i]).test(filename)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	function attachHash(data) {
 		if (hashSecret) {
 			data.hash = calcHash(data);
@@ -135,6 +148,7 @@ function parseArgs() {
 	projectName = process.argv[argsNum - 2];
 	if (!/^[a-z0-9]{1,100}$/i.test(projectName)) {
 		console.error('incorrect project token, must be ^[a-z0-9]{1,100}$');
+		printUsage();
 		process.exit();
 	}
 	projectDir = path.resolve(process.argv[argsNum - 1]);
@@ -143,16 +157,23 @@ function parseArgs() {
 		if (process.argv[i] == '--hash' || process.argv[i] == '-h') {
 			hashSecret = process.argv[i + 1];
 		}
+		if (process.argv[i] == '-i') {
+			ignore.push(path.join(projectDir, process.argv[i + 1]));
+		}
 	}
 }
 
 function printUsage() {
 	console.log('Usage: \n' + 
-			'$ node ./vrsksync send my_token my_directory\n' +
-			'or\n' +
-			'$ node ./vrsksync receive my_token my_directory\n' +
-			' where: \n' +
-			'  - my_token - your unique token (project id), must be\n'+
-			'      same on source and target\n' +
-			'  - my_directory - your local directory to sync\n');
+			'on source:\n' +
+			'$ node ./vrsksync [options] send my_token my_directory\n' +
+			'on dest:\n' +
+			'$ node ./vrsksync [options] receive my_token my_directory\n' +
+			' where:\n' +
+			'  my_token        your unique token (project id), must be\n'+
+			'      same on source and dest\n' +
+			'  my_directory    your local directory to sync\n' +
+			' options:\n' +
+			'  -h secret    secret phrase for checking MD5 hashsum\n' +
+			'  -i path      directory|file to ignore (path relative to my_directory)');
 }

@@ -9,7 +9,7 @@ Usage:
     
     // So all changed files in this this directory will be sended to remote
   
-  - On remote:
+  - On remote (dest):
   
     $ node vrsksync receive my_token my_directory
     
