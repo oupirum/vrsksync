@@ -104,7 +104,6 @@ function listen(ref, projectDir) {
 	
 	function filter(filename) {
 		for (var i in ignore) {
-			console.log(path.resolve(filename), filename, new RegExp('^' + ignore[i]), new RegExp('^' + ignore[i]).test(filename));
 			if (new RegExp('^' + ignore[i]).test(filename)) {
 				return false;
 			}
