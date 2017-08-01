@@ -2,7 +2,7 @@
 
 Sync utility.
 
-Works via Firebase, so can be used to sync files over network without public IPs.
+Works via Firebase, so can be used to sync files over network without static IPs.
 
 Usage: 
   - On host (source):
