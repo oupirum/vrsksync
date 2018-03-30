@@ -7,13 +7,13 @@ Works via Firebase, so can be used to sync files over network without static IPs
 Usage: 
   - On host (source):
   
-    $ node vrsksync send my_token my_directory
+    $ node vrsksync send <my_token> <my_directory>
     
-    // So all changed files in this this directory will be sended to remote
+    // So all changed files in this this directory will be sent to remote
   
   - On remote (dest):
   
-    $ node vrsksync receive my_token my_directory
+    $ node vrsksync receive <my_token> <my_directory>
     
     // So changed files from host will be updated here (token must be same on host and on remote)
 
